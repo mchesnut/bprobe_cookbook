@@ -62,11 +62,6 @@ module Boundary
         if node[:ec2][:instance_type]
           apply_an_tag(new_resource, node[:ec2][:instance_type])
         end
-	if node[:run_list]
-	  node[:run_list].each do |r|
-            apply_an_tag(new_resource, r)
-	  end
-        end
       end
     end
 
@@ -108,6 +103,13 @@ module Boundary
         end
       else
         Chef::Log.debug("No meter tags to apply.")
+      end
+      if node[:run_list]
+        Chef::Log.debug("applying tags from run_list")
+        node[:run_list].each do |r|
+          Chef::Log.debug("applying tag from run_list: #{r}")
+          apply_an_tag(new_resource, r.to_s)
+        end
       end
     end
 
