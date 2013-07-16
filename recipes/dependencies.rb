@@ -61,14 +61,7 @@ when "debian"
     uri "https://apt.boundary.com/ubuntu/"
     # precise is the latest version supported by the boundary repo,
     # so force later versions (quantal and raring) to use that
-    case node[:lsb][:codename]
-    when "quantal"
-        distribution "precise"
-    when "raring"
-        distribution "precise"
-    else
-        distribution node[:lsb][:codename]
-    end
+    distribution "precise"
     components ["universe"]
     key "https://apt.boundary.com/APT-GPG-KEY-Boundary"
     action :add
