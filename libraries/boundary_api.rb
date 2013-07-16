@@ -49,11 +49,11 @@ module Boundary
       if node[:ec2]
         Chef::Log.debug("This meter seems to be on EC2, applying ec2 based tags")
 
-        if node[:ec2][:security_groups].length > 0
-          node[:ec2][:security_groups].each do |group|
-            apply_an_tag(new_resource, group)
-          end
-        end
+        #if node[:ec2][:security_groups].length > 0
+        #  node[:ec2][:security_groups].each do |group|
+        #    apply_an_tag(new_resource, group)
+        #  end
+        #end
 
         if node[:ec2][:placement_availability_zone]
           apply_an_tag(new_resource, node[:ec2][:placement_availability_zone])
@@ -61,6 +61,11 @@ module Boundary
 
         if node[:ec2][:instance_type]
           apply_an_tag(new_resource, node[:ec2][:instance_type])
+        end
+	if node[:run_list]
+	  node[:run_list].each do |r|
+            apply_an_tag(new_resource, r)
+	  end
         end
       end
     end
