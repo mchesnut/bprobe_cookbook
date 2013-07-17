@@ -108,7 +108,7 @@ module Boundary
         Chef::Log.debug("applying tags from run_list")
         node.run_list.each do |r|
           Chef::Log.debug("applying tag from run_list: #{r}")
-          apply_an_tag(new_resource, r.to_s)
+          apply_an_tag(new_resource, r.to_s.gsub(/role\[(.*)\]/,'\1'))
         end
       end
     end
